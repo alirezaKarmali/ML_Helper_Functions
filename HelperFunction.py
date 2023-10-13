@@ -212,8 +212,8 @@ def compare_historys(original_history, new_history, initial_epochs=5):
     total_val_loss = val_loss + new_history.history["val_loss"]
 
     # Make plots
-    plt.figure(figsize=(8, 8))
-    plt.subplot(2, 1, 1)
+    plt.figure(figsize=(12, 8))
+    plt.subplot(2, 2, 1)
     plt.plot(total_acc, label='Training Accuracy')
     plt.plot(total_val_acc, label='Validation Accuracy')
     plt.plot([initial_epochs-1, initial_epochs-1],
@@ -221,7 +221,7 @@ def compare_historys(original_history, new_history, initial_epochs=5):
     plt.legend(loc='lower right')
     plt.title('Training and Validation Accuracy')
 
-    plt.subplot(2, 1, 2)
+    plt.subplot(2, 2, 2)
     plt.plot(total_loss, label='Training Loss')
     plt.plot(total_val_loss, label='Validation Loss')
     plt.plot([initial_epochs-1, initial_epochs-1],
