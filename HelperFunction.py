@@ -170,7 +170,7 @@ def plot_loss_curves(history):
 
   epochs = range(len(history.history['loss']))
 
-  plt.figure(8, 4)
+  plt.figure(figsize=(8, 4))
   # Plot loss
   plt.subplot(2, 2, 1)
   plt.plot(epochs, loss, label='training_loss')
