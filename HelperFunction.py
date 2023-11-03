@@ -309,4 +309,4 @@ def DataAugmentation():
         preprocessing.RandomWidth(0.2)
         # preprocessing.Rescaling(1./255) # Keep for ResNet50V2 but EfficentNet's having rescaling built-in
     ])
-  return  data_augmentation
+    return  data_augmentation
