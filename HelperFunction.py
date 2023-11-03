@@ -27,6 +27,8 @@ def load_and_prep_image(filename, img_shape=224, scale=True):
   else:
     return img
 
+
+# -----------------------------------------------------------------------------------
 # Note: The following confusion matrix code is a remix of Scikit-Learn's 
 # plot_confusion_matrix function - https://scikit-learn.org/stable/modules/generated/sklearn.metrics.plot_confusion_matrix.html
 import itertools
@@ -108,7 +110,8 @@ def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_s
   # Save the figure to the current working directory
   if savefig:
     fig.savefig("confusion_matrix.png")
-  
+
+# -----------------------------------------------------------------------------------
 # Make a function to predict on images and plot them (works with multi-class)
 def pred_and_plot(model, filename, class_names):
   """
@@ -131,7 +134,8 @@ def pred_and_plot(model, filename, class_names):
   plt.imshow(img)
   plt.title(f"Prediction: {pred_class}")
   plt.axis(False);
-  
+
+# -----------------------------------------------------------------------------------
 import datetime
 
 def create_tensorboard_callback(dir_name, experiment_name):
@@ -152,6 +156,7 @@ def create_tensorboard_callback(dir_name, experiment_name):
   print(f"Saving TensorBoard log files to: {log_dir}")
   return tensorboard_callback
 
+# -----------------------------------------------------------------------------------
 # Plot the validation and training data separately
 import matplotlib.pyplot as plt
 
@@ -186,7 +191,8 @@ def plot_loss_curves(history):
   plt.title('Accuracy')
   plt.xlabel('Epochs')
   plt.legend();
-
+  
+# -----------------------------------------------------------------------------------
 def compare_historys(original_history, new_history, initial_epochs=5):
     """
     Compares two TensorFlow model History objects.
@@ -230,11 +236,11 @@ def compare_historys(original_history, new_history, initial_epochs=5):
     plt.title('Training and Validation Loss')
     plt.xlabel('epoch')
     plt.show()
-  
+
+# -----------------------------------------------------------------------------------
 # Create function to unzip a zipfile into current working directory 
 # (since we're going to be downloading and unzipping a few files)
 import zipfile
-
 def unzip_data(filename):
   """
   Unzips filename into the current working directory.
@@ -246,10 +252,10 @@ def unzip_data(filename):
   zip_ref.extractall()
   zip_ref.close()
 
+# -----------------------------------------------------------------------------------
 # Walk through an image classification directory and find out how many files (images)
 # are in each subdirectory.
 import os
-
 def walk_through_dir(dir_path):
   """
   Walks through dir_path returning its contents.
@@ -265,10 +271,10 @@ def walk_through_dir(dir_path):
   """
   for dirpath, dirnames, filenames in os.walk(dir_path):
     print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
-    
+
+# -----------------------------------------------------------------------------------
 # Function to evaluate: accuracy, precision, recall, f1-score
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-
 def calculate_results(y_true, y_pred):
   """
   Calculates model accuracy, precision, recall and f1 score of a binary classification model.
@@ -288,3 +294,19 @@ def calculate_results(y_true, y_pred):
                   "recall": model_recall,
                   "f1": model_f1}
   return model_results
+  
+# -----------------------------------------------------------------------------------
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.layers.experimental import preprocessing
+# Create data augmentation stage with horizontal flipping, rotations, rooms, etc
+def Data_Augmentation():
+    data_augmentation = keras.Sequential([
+        preprocessing.RandomFlip('horizontal'),
+        preprocessing.RandomRotation(0.2),
+        preprocessing.RandomZoom(0.2),
+        preprocessing.RandomHeight(0.2),
+        preprocessing.RandomWidth(0.2)
+        # preprocessing.Rescaling(1./255) # Keep for ResNet50V2 but EfficentNet's having rescaling built-in
+    ])
+  return  data_augmentation
