@@ -300,7 +300,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 # Create data augmentation stage with horizontal flipping, rotations, rooms, etc
-def Data_Augmentation():
+def DataAugmentation():
     data_augmentation = keras.Sequential([
         preprocessing.RandomFlip('horizontal'),
         preprocessing.RandomRotation(0.2),
