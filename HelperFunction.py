@@ -26,7 +26,45 @@ def load_and_prep_image(filename, img_shape=224, scale=True):
     return img/255.
   else:
     return img
+# -----------------------------------------------------------------------------------
+# Let's Create a function history measurements
+def compare_historys(original_history, new_history, initial_epochs=5):
+  """
+  Compares two Transfer History Objects.
+  """
+  import matplotlib.pyplot as plt
+  # Get original history measurements
+  acc = original_history.history["accuracy"]
+  loss = original_history.history["loss"]
 
+  val_acc = original_history.history["val_accuracy"]
+  val_loss = original_history.history["val_loss"]
+
+  # Combine original history metrics with new_history metrics
+  total_acc = acc + new_history.history["accuracy"]
+  total_loss = loss + new_history.history["loss"]
+
+  total_val_acc = val_acc + new_history.history["val_accuracy"]
+  total_val_loss = val_loss + new_history.history["val_loss"]
+
+  # Make Plot For Acuuracy
+  plt.figure(figsize=(12, 5))
+  plt.subplot(1, 2, 1)
+  plt.plot(total_acc, label="Training Accuracy")
+  plt.plot(total_val_acc, label="Val Accuracy")
+  plt.plot([initial_epochs-1, initial_epochs-1], plt.ylim(), label="Start Fine Tunning")
+  plt.title("Training and Validation Accuracy")
+  plt.legend(loc="lower right")
+
+
+  # Make Plot For Loss
+
+  plt.subplot(1, 2, 2)
+  plt.plot(total_loss, label="Training Loss")
+  plt.plot(total_val_loss, label="Validation Loss")
+  plt.plot([initial_epochs-1, initial_epochs-1], plt.ylim(), label="Start Fine Tunning")
+  plt.title("Training and Validation Loss")
+  plt.legend(loc="upper right")
 
 # -----------------------------------------------------------------------------------
 # Note: The following confusion matrix code is a remix of Scikit-Learn's 
